@@ -30,7 +30,7 @@ function DisplayBooks() {
         <div className="bg-white rounded-lg shadow-lg p-4">
           <h2 className="text-lg font-semibold">{book.title}</h2>
           <p className="text-gray-600">{book.author}</p>
-          
+          <img src={book.image_url} alt="" />
         </div>
       </div>
     ))}

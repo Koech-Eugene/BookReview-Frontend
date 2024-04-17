@@ -1,11 +1,9 @@
-// Footer.js
-import React from 'react';
 
 function Footer() {
   return (
-    <footer className="bg-gray-800 text-white py-4 text-center">
+    <footer className="bg-gray-800 text-white py-4 text-center mt-auto">
       <div className="container mx-auto">
-        <p>&copy; 2o24 NarrativeNexus. All rights reserved.</p>
+        <p>&copy; 2024 NarrativeNexus. All rights reserved.</p>
       </div>
     </footer>
   );

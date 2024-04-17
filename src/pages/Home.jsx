@@ -2,13 +2,12 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import DisplayBooks from "../components/DisplayBooks";
-import Footer from "../components/Footer";
+
 
 function Home() {
   return (
     <>
-    <div className="flex flex-col h-screen">
-      <Navbar />
+    <div className="">
       <div className="flex flex-1">
         <div className="md:w-[20%]">
           <Sidebar />
@@ -17,7 +16,6 @@ function Home() {
           <DisplayBooks />
         </div>
       </div>
-      <Footer />
     </div>
     </>
   );
