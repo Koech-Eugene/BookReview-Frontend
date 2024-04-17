@@ -3,49 +3,31 @@ import { useHistory, Link } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+const LoginSchema = Yup.object().shape({
+  email: Yup.string().email("Invalid email").required("Email is required"),
+  password: Yup.string().required("Password is required"),
+});
+
+const SignupSchema = Yup.object().shape({
+  username: Yup.string().required("Username is required"),
+  email: Yup.string().email("Invalid email").required("Email is required"),
+  password: Yup.string().required("Password is required"),
+});
+
 const LoginSignup = () => {
   const history = useHistory();
   const [loginError, setLoginError] = useState("");
   const [signupError, setSignupError] = useState("");
 
-  const LoginSchema = Yup.object().shape({
-    email: Yup.string().email("Invalid email").required("Email is required"),
-    password: Yup.string().required("Password is required"),
-  });
-
-  const SignupSchema = Yup.object().shape({
-    firstName: Yup.string().required("First Name is required"),
-    lastName: Yup.string().required("Last Name is required"),
-    email: Yup.string().email("Invalid email").required("Email is required"),
-    password: Yup.string().required("Password is required"),
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password"), null], "Passwords must match")
-      .required("Confirm Password is required"),
-    dobDay: Yup.number()
-      .typeError("Invalid day")
-      .min(1, "Day must be between 1 and 31")
-      .max(31, "Day must be between 1 and 31")
-      .required("Day of Birth is required"),
-    dobMonth: Yup.number()
-      .typeError("Invalid month")
-      .min(1, "Month must be between 1 and 12")
-      .max(12, "Month must be between 1 and 12")
-      .required("Month of Birth is required"),
-    dobYear: Yup.number()
-      .typeError("Invalid year")
-      .min(1900, "Year must be after 1900")
-      .max(new Date().getFullYear(), "Year must be before or equal to current year")
-      .required("Year of Birth is required"),
-  });
-
   const handleLogin = async (values, { setSubmitting }) => {
     try {
+      const { email, password } = values;
       const response = await fetch("http://localhost:5555/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(values),
+        body: JSON.stringify({ email, password }),
       });
       if (response.ok) {
         // Redirect to homepage after successful login
@@ -64,12 +46,13 @@ const LoginSignup = () => {
 
   const handleSignup = async (values, { setSubmitting }) => {
     try {
+      const { username, email, password } = values;
       const response = await fetch("http://localhost:5555/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(values),
+        body: JSON.stringify({ username, email, password }),
       });
       if (response.ok) {
         // Redirect to homepage after successful signup
@@ -118,30 +101,16 @@ const LoginSignup = () => {
       <div className="signup">
         <h1>Signup</h1>
         <Formik
-          initialValues={{
-            firstName: "",
-            lastName: "",
-            email: "",
-            password: "",
-            confirmPassword: "",
-            dobDay: "",
-            dobMonth: "",
-            dobYear: "",
-          }}
+          initialValues={{ username: "", email: "", password: "" }}
           validationSchema={SignupSchema}
           onSubmit={handleSignup}
         >
           {({ isSubmitting }) => (
             <Form>
               <div>
-                <label>First Name</label>
-                <Field type="text" name="firstName" />
-                <ErrorMessage name="firstName" component="div" />
-              </div>
-              <div>
-                <label>Last Name</label>
-                <Field type="text" name="lastName" />
-                <ErrorMessage name="lastName" component="div" />
+                <label>Username</label>
+                <Field type="text" name="username" />
+                <ErrorMessage name="username" component="div" />
               </div>
               <div>
                 <label>Email</label>
@@ -152,26 +121,6 @@ const LoginSignup = () => {
                 <label>Password</label>
                 <Field type="password" name="password" />
                 <ErrorMessage name="password" component="div" />
-              </div>
-              <div>
-                <label>Confirm Password</label>
-                <Field type="password" name="confirmPassword" />
-                <ErrorMessage name="confirmPassword" component="div" />
-              </div>
-              <div>
-                <label>Day of Birth</label>
-                <Field type="number" name="dobDay" />
-                <ErrorMessage name="dobDay" component="div" />
-              </div>
-              <div>
-                <label>Month of Birth</label>
-                <Field type="number" name="dobMonth" />
-                <ErrorMessage name="dobMonth" component="div" />
-              </div>
-              <div>
-                <label>Year of Birth</label>
-                <Field type="number" name="dobYear" />
-                <ErrorMessage name="dobYear" component="div" />
               </div>
               {signupError && <div>{signupError}</div>}
               <button type="submit" disabled={isSubmitting}>
