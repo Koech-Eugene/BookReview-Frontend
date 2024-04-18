@@ -4,7 +4,7 @@ import { Link } from 'react-scroll';
 function Sidebar() {
   
   return (
-    <div className="hidden md:flex flex-col justify-center items-center bottom-36 top-28 left- w-[250px] h-[70vh] fixed bg-gradient-to-b from-black to-gray-800 text-gray-300">
+    <div className="hidden sm:hidden md:flex flex-col justify-center items-center bottom-36 top-28 left- w-[180px] h-[70vh] fixed bg-gradient-to-b from-black to-gray-800 text-gray-300">
       <ul>
         <li className="px-4 cursor-pointer py-3 text-2xl capitalize">
             Genre

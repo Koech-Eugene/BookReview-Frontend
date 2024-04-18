@@ -33,7 +33,7 @@ function Navbar() {
     <header>
       <nav className="flex justify-between items-center w-full bg-gray-800 text-white fixed h-20">
         <div>
-          <Link to="/" smooth duration={500}>
+          <Link to="/" >
           <h2 className="text-gray-400 font-bold
           ">NarrativeNexus</h2>
           </Link>
@@ -45,7 +45,7 @@ function Navbar() {
                 key={id}
                 className="cursor-pointer px-4 capitalize font-semibold text-gray-600 hover:text-blue-600 hover:scale-110 duration-200 "
               >
-                <Link to={route} smooth duration={500}>{link}</Link>
+                <Link to={route} >{link}</Link>
               </li>
             ))}
           </ul>
