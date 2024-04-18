@@ -4,7 +4,7 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Bookmarks from "./pages/Bookmarks";
 import Post from "./pages/Post";
-import Login from "./pages/Login";
+import LoginSignup from "./components/LoginSignup";
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/bookmarks" element={<Bookmarks />} />
             <Route path="/post" element={<Post />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<LoginSignup />} />
           </Routes>
         </div>
         <Footer />
@@ -24,5 +24,4 @@ function App() {
     </>
   );
 }
-
 export default App;
