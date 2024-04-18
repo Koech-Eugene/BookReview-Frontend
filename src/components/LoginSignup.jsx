@@ -1,7 +1,10 @@
+// LoginSignup.jsx
+
 import React, { useState } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import "./login.css";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
@@ -15,7 +18,7 @@ const SignupSchema = Yup.object().shape({
 });
 
 const LoginSignup = () => {
-  const history = useHistory();
+  const history = useNavigate();
   const [loginError, setLoginError] = useState("");
   const [signupError, setSignupError] = useState("");
 
@@ -47,16 +50,20 @@ const LoginSignup = () => {
   const handleSignup = async (values, { setSubmitting }) => {
     try {
       const { username, email, password } = values;
-      const response = await fetch("http://localhost:5555/signup", {
+      const response = await fetch("http://localhost:5555/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, email, password }),
+        body: JSON.stringify({ 
+          username: username , 
+          email: email,
+          password: password })
       });
       if (response.ok) {
         // Redirect to homepage after successful signup
-        history.push("/home");
+        //history.push("/home");
+        console.log("good")
       } else {
         // Handle failed signup
         setSignupError("Failed to signup. Please try again.");
@@ -71,24 +78,40 @@ const LoginSignup = () => {
 
   return (
     <div className="login-signup">
-      <div className="login">
+      <div className="login-form">
         <h1>Login</h1>
         <Formik
           initialValues={{ email: "", password: "" }}
           validationSchema={LoginSchema}
           onSubmit={handleLogin}
         >
-          {({ isSubmitting }) => (
+          {({ isSubmitting, errors }) => (
             <Form>
               <div>
                 <label>Email</label>
-                <Field type="email" name="email" />
-                <ErrorMessage name="email" component="div" />
+                <Field
+                  type="email"
+                  name="email"
+                  className={errors.email ? "field-error" : ""}
+                />
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                  className="error-message"
+                />
               </div>
               <div>
                 <label>Password</label>
-                <Field type="password" name="password" />
-                <ErrorMessage name="password" component="div" />
+                <Field
+                  type="password"
+                  name="password"
+                  className={errors.password ? "field-error" : ""}
+                />
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  className="error-message"
+                />
               </div>
               {loginError && <div>{loginError}</div>}
               <button type="submit" disabled={isSubmitting}>
@@ -98,29 +121,53 @@ const LoginSignup = () => {
           )}
         </Formik>
       </div>
-      <div className="signup">
+      <div className="signup-form">
         <h1>Signup</h1>
         <Formik
           initialValues={{ username: "", email: "", password: "" }}
           validationSchema={SignupSchema}
           onSubmit={handleSignup}
         >
-          {({ isSubmitting }) => (
+          {({ isSubmitting, errors }) => (
             <Form>
               <div>
                 <label>Username</label>
-                <Field type="text" name="username" />
-                <ErrorMessage name="username" component="div" />
+                <Field
+                  type="text"
+                  name="username"
+                  className={errors.username ? "field-error" : ""}
+                />
+                <ErrorMessage
+                  name="username"
+                  component="div"
+                  className="error-message"
+                />
               </div>
               <div>
                 <label>Email</label>
-                <Field type="email" name="email" />
-                <ErrorMessage name="email" component="div" />
+                <Field
+                  type="email"
+                  name="email"
+                  className={errors.email ? "field-error" : ""}
+                />
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                  className="error-message"
+                />
               </div>
               <div>
                 <label>Password</label>
-                <Field type="password" name="password" />
-                <ErrorMessage name="password" component="div" />
+                <Field
+                  type="password"
+                  name="password"
+                  className={errors.password ? "field-error" : ""}
+                />
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  className="error-message"
+                />
               </div>
               {signupError && <div>{signupError}</div>}
               <button type="submit" disabled={isSubmitting}>
@@ -130,7 +177,12 @@ const LoginSignup = () => {
           )}
         </Formik>
       </div>
-      <p>Already have an account? <Link to="/login">Login</Link></p>
+      <p>
+        Already have an account?{" "}
+        <Link to="/login" className="login-link">
+          Login
+        </Link>
+      </p>
     </div>
   );
 };

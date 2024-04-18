@@ -4,7 +4,7 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Bookmarks from "./pages/Bookmarks";
 import Post from "./pages/Post";
-import LoginSignup from "./pages/LoginSignup";
+import LoginSignup from "./components/LoginSignup";
 
 function App() {
   return (
