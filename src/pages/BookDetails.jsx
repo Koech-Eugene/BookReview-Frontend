@@ -10,7 +10,7 @@ function BookDetails() {
     async function fetchBookDetails() {
       try {
         const response = await fetch(
-          `https://example-data.draftbit.com/books/${id}`
+          `http://127.0.0.1:5000/books/${id}`
         );
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -39,7 +39,7 @@ function BookDetails() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <img
-            src={book.image_url}
+            src={book.image}
             alt={book.title}
             className="rounded-3xl h-72 object-cover"
           />

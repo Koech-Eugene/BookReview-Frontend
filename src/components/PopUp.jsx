@@ -1,8 +1,8 @@
 import React from "react";
 
-function PopUp({ book }) {
+function PopUp({ book, position }) {
   return (
-    <div className="absolute bottom- left-0 w-full  flex items-center justify-center">
+    <div className={`absolute bottom-0 left-0 ${position}`} style={{ width: '100%' }}>
       <div className="bg-white rounded-lg p-4 max-w-sm overflow-y-auto z-50 h-[200px]">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-bold">{book.title}</h2>
